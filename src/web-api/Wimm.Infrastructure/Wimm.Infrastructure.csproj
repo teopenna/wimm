@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wimm.Core\Wimm.Core.csproj" />
+    <ProjectReference Include="..\Wimm.Logging\Wimm.Logging.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Configuration\" />
+    <None Remove="Configuration\Interfaces\" />
+    <None Remove="Data\" />
+    <None Remove="Messages\" />
+    <None Remove="Services\" />
+    <None Remove="Azure.Cosmos" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuration\" />
+    <Folder Include="Configuration\Interfaces\" />
+    <Folder Include="Data\" />
+    <Folder Include="Messages\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Azure.Cosmos" Version="4.0.0-preview3" />
+  </ItemGroup>
+</Project>
