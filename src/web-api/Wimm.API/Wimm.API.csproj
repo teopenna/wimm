@@ -4,9 +4,14 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\net5.0\Wimm.API.xml</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.12.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.2.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,12 +20,23 @@
     <None Remove="Core\DependencyInjection\" />
     <None Remove="DtoValidation\" />
     <None Remove="DtoValidation\Filters\" />
+    <None Remove="Middleware\" />
+    <None Remove="Utils\" />
+    <None Remove="Dto\" />
+    <None Remove="Mappers\" />
+    <None Remove="FluentValidation.AspNetCore" />
+    <None Remove="AuthorizationPolicies\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
     <Folder Include="Core\DependencyInjection\" />
     <Folder Include="DtoValidation\" />
     <Folder Include="DtoValidation\Filters\" />
+    <Folder Include="Middleware\" />
+    <Folder Include="Utils\" />
+    <Folder Include="Dto\" />
+    <Folder Include="Mappers\" />
+    <Folder Include="AuthorizationPolicies\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Wimm.Core\Wimm.Core.csproj">

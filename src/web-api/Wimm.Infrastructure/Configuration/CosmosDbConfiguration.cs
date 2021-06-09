@@ -7,12 +7,12 @@ namespace Wimm.Infrastructure.Configuration
     {
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
-        public string CarContainerName { get; set; }
-        public string CarContainerPartitionKeyPath { get; set; }
-        public string EnquiryContainerName { get; set; }
-        public string EnquiryContainerPartitionKeyPath { get; set; }
-        public string CarReservationContainerName { get; set; }
-        public string CarReservationPartitionKeyPath { get; set; }
+        public string AccountContainerName { get; set; }
+        public string AccountContainerPartitionKeyPath { get; set; }
+        //public string EnquiryContainerName { get; set; }
+        //public string EnquiryContainerPartitionKeyPath { get; set; }
+        //public string CarReservationContainerName { get; set; }
+        //public string CarReservationPartitionKeyPath { get; set; }
     }
 
     public class CosmosDbConfigurationValidation : IValidateOptions<CosmosDbConfiguration>
@@ -24,40 +24,40 @@ namespace Wimm.Infrastructure.Configuration
                 return ValidateOptionsResult.Fail($"{nameof(options.ConnectionString)} configuration parameter for the Azure Cosmos DB is required");
             }
 
-            if (string.IsNullOrEmpty(options.CarContainerName))
+            if (string.IsNullOrEmpty(options.AccountContainerName))
             {
-                return ValidateOptionsResult.Fail($"{nameof(options.CarContainerName)} configuration parameter for the Azure Cosmos DB is required");
+                return ValidateOptionsResult.Fail($"{nameof(options.AccountContainerName)} configuration parameter for the Azure Cosmos DB is required");
             }
 
-            if (string.IsNullOrEmpty(options.EnquiryContainerName))
-            {
-                return ValidateOptionsResult.Fail($"{nameof(options.EnquiryContainerName)} configuration parameter for the Azure Cosmos DB is required");
-            }
+            //if (string.IsNullOrEmpty(options.EnquiryContainerName))
+            //{
+            //    return ValidateOptionsResult.Fail($"{nameof(options.EnquiryContainerName)} configuration parameter for the Azure Cosmos DB is required");
+            //}
 
-            if (string.IsNullOrEmpty(options.CarReservationContainerName))
-            {
-                return ValidateOptionsResult.Fail($"{nameof(options.CarReservationContainerName)} configuration parameter for the Azure Cosmos DB is required");
-            }
+            //if (string.IsNullOrEmpty(options.CarReservationContainerName))
+            //{
+            //    return ValidateOptionsResult.Fail($"{nameof(options.CarReservationContainerName)} configuration parameter for the Azure Cosmos DB is required");
+            //}
 
-            if (string.IsNullOrEmpty(options.DatabaseName))
-            {
-                return ValidateOptionsResult.Fail($"{nameof(options.DatabaseName)} configuration parameter for the Azure Cosmos DB is required");
-            }
+            //if (string.IsNullOrEmpty(options.DatabaseName))
+            //{
+            //    return ValidateOptionsResult.Fail($"{nameof(options.DatabaseName)} configuration parameter for the Azure Cosmos DB is required");
+            //}
 
-            if (string.IsNullOrEmpty(options.CarContainerPartitionKeyPath))
-            {
-                return ValidateOptionsResult.Fail($"{nameof(options.CarContainerPartitionKeyPath)} configuration parameter for the Azure Cosmos DB is required");
-            }
+            //if (string.IsNullOrEmpty(options.CarContainerPartitionKeyPath))
+            //{
+            //    return ValidateOptionsResult.Fail($"{nameof(options.CarContainerPartitionKeyPath)} configuration parameter for the Azure Cosmos DB is required");
+            //}
 
-            if (string.IsNullOrEmpty(options.EnquiryContainerPartitionKeyPath))
-            {
-                return ValidateOptionsResult.Fail($"{nameof(options.EnquiryContainerPartitionKeyPath)} configuration parameter for the Azure Cosmos DB is required");
-            }
+            //if (string.IsNullOrEmpty(options.EnquiryContainerPartitionKeyPath))
+            //{
+            //    return ValidateOptionsResult.Fail($"{nameof(options.EnquiryContainerPartitionKeyPath)} configuration parameter for the Azure Cosmos DB is required");
+            //}
 
-            if (string.IsNullOrEmpty(options.CarReservationPartitionKeyPath))
-            {
-                return ValidateOptionsResult.Fail($"{nameof(options.CarReservationPartitionKeyPath)} configuration parameter for the Azure Cosmos DB is required");
-            }
+            //if (string.IsNullOrEmpty(options.CarReservationPartitionKeyPath))
+            //{
+            //    return ValidateOptionsResult.Fail($"{nameof(options.CarReservationPartitionKeyPath)} configuration parameter for the Azure Cosmos DB is required");
+            //}
 
             return ValidateOptionsResult.Success;
         }

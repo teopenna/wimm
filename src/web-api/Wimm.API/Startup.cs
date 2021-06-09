@@ -1,16 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Wimm.API.AuthorizationPolicies;
+using Wimm.API.Core.DependencyInjection;
+using Wimm.API.DtoValidation.Filters;
+using Wimm.API.Middleware;
+using Wimm.Core.Interfaces;
+using Wimm.Infrastructure.Services.Identity;
 
 namespace Wimm.API
 {
@@ -26,28 +29,48 @@ namespace Wimm.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAppConfiguration(Configuration)
+                .AddAuthenticationWithAuthorizationSupport(Configuration)
+                .AddDataService()
+                .AddStorageServices()
+                .AddSwagger();
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddControllers(configure =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Wimm.API", Version = "v1" });
+                configure.Filters.Add(new DtoValidationFilter());
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+                configure.Filters.Add(new AuthorizeFilter(policy));
+            }); //.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CustomerCarReservationValidator>());
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AccessAsUser",
+                        policy => policy.Requirements.Add(new ScopesRequirement("access_as_user")));
             });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
+            services.AddHttpContextAccessor();
+            services.AddTransient<IIdentityService, IdentityService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wimm.API v1"));
-            }
+            app.UseApiExceptionHandler();
 
             app.UseHttpsRedirection();
 
+            app.UseSwaggerServices();
+
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -15,6 +15,7 @@
     <None Remove="Messages\" />
     <None Remove="Services\" />
     <None Remove="Azure.Cosmos" />
+    <None Remove="Services\Identity\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configuration\" />
@@ -22,6 +23,7 @@
     <Folder Include="Data\" />
     <Folder Include="Messages\" />
     <Folder Include="Services\" />
+    <Folder Include="Services\Identity\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Azure.Cosmos" Version="4.0.0-preview3" />
