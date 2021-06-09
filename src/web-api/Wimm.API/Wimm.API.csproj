@@ -13,9 +13,24 @@
     <None Remove="Microsoft.Identity.Web" />
     <None Remove="Core\" />
     <None Remove="Core\DependencyInjection\" />
+    <None Remove="DtoValidation\" />
+    <None Remove="DtoValidation\Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
     <Folder Include="Core\DependencyInjection\" />
+    <Folder Include="DtoValidation\" />
+    <Folder Include="DtoValidation\Filters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wimm.Core\Wimm.Core.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Wimm.Infrastructure\Wimm.Infrastructure.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Wimm.Logging\Wimm.Logging.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>
