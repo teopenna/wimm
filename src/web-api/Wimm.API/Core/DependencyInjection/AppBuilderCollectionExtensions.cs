@@ -12,7 +12,6 @@ namespace Wimm.API.Core.DependencyInjection
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "WIMM API - v1.0");
-                c.RoutePrefix = string.Empty;
             });
         }
     }
